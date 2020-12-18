@@ -2,7 +2,7 @@
 #
 # pacman-src - https://gitlab.com/tim241/pacman-src
 #
-# Copyright (C) 2019 Tim Wanders <tim241@mailbox.org>
+# Copyright (C) 2020 Ohio2 <ohio2.mail@zohomail.eu>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -80,17 +80,17 @@ function _print() {
 }
 # Print white text
 function _wprint() {
-    _print "${_color_green}=>>${_color_reset} ${_color_white}$* ${_color_reset}"
+    _print "${_color_green}==>${_color_reset} ${_color_white}$* ${_color_reset}"
 }
 # Print red error text
 function _errprint() {
-    _print "${_color_red}=>> ERROR:${_color_reset} ${_color_white}$*${_color_reset}" >&2
+    _print "${_color_red}==> ERROR:${_color_reset} ${_color_white}$*${_color_reset}" >&2
 }
 # Print yellow warning text
 function _warnprint() {
     if [ "$_nowarn" = "no" ]
     then
-        _print "${_color_yel}=>> WARNING:${_color_reset} ${_color_white}$*${_color_reset}"
+        _print "${_color_yel}==> WARNING:${_color_reset} ${_color_white}$*${_color_reset}"
     fi
 }
 # Print sub info
@@ -437,7 +437,7 @@ function _pgp_import() {
 
         if [ "$_noconfirm" = "no" ]
         then
-            echo -e "\n${_color_green}=>>${_color_reset} ${_color_white}Do you want to import the PGP key(s)? [Y/n] ${_color_reset}\\c"
+            echo -e "\n${_color_green}==>${_color_reset} ${_color_white}Do you want to import the PGP key(s)? [Y/n] ${_color_reset}\\c"
             read -r _answer
             case $_answer in
                 n|N|no)
@@ -458,7 +458,7 @@ function _ask_edit() {
     while true
     do
         _editor_found=no
-        echo -e "${_color_green}=>>${_color_reset} ${_color_white}Do you want to edit the PKGBUILD? [y/N] ${_color_reset}\\c"
+        echo -e "${_color_green}==>${_color_reset} ${_color_white}Do you want to edit the PKGBUILD? [y/N] ${_color_reset}\\c"
         read -r _answer
         # print newline
         echo
@@ -466,7 +466,7 @@ function _ask_edit() {
         case $_answer in
             Y|y|yes)
                 # shellcheck disable=SC2153
-                for editor in "$EDITOR" "$VISUAL" nano vim vi emacs
+                for editor in "$EDITOR" "$VISUAL" nvim nano vim vi emacs 
                 do
                     if command -v "$editor" &> /dev/null
                     then
@@ -482,7 +482,7 @@ function _ask_edit() {
                 return;;
             N|n|no|"")
                 return;;
-            *) echo -e "${_color_yel}=>> WARNING:${_color_reset} ${_color_white}Invalid option${_color_reset}\\n";;
+            *) echo -e "${_color_yel}==> WARNING:${_color_reset} ${_color_white}Invalid option${_color_reset}\\n";;
         esac
     done
 }
@@ -512,7 +512,7 @@ function _check_cache() {
 function _usage() {
     if [ "$_quiet" = "no" ]
     then
-        echo -e "pacman-src compiles Arch GNU/Linux packages from source using the ABS\\n"
+        echo -e "pacman-src compiles Arch GNU/Linux packages from source using the ABS. Basically, an EMERGE for Arch!\\n"
         echo "Usage: pacman-src [OPTION] [PACKAGE]"
         echo -e "\\nOptions:"
         echo "  -u, --update        updates the cache"
@@ -546,7 +546,7 @@ function _usage() {
 # Displays version
 #
 function _version() {
-    echo -e "pacman-src @VERSION@\\n"
+    echo -e "pacman-src 1.2\\n"
     echo "Copyright (C) 2018 Tim Wanders"
     echo -e "This is free software; see the source for copying conditions.\\nThere is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\\n"
     echo "Written by Tim Wanders."
